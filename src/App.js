@@ -1,36 +1,44 @@
 import React, { Component } from 'react';
-import './App.css';
-import Person from "./components/Person";
+import Validation from "./components/Validation/Validation";
+import Char from "./components/Char/Char";
 
 class App extends Component {
   state = {
-    persons: [
-      { name: 'Lucho Web', age: 30 },
-      { name: 'Mirlei Sofia', age: 5 }
-    ]
+    userInput: ''
   }
 
-  switchNameHandler = () => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Marlie';
-    this.setState({
-      persons: [
-        { name: 'Luis Augusto', age: 31 },
-        { name: 'Marlie Elena', age: 32 }
-      ]
-    })
+  inputChangedHandler = ( event ) => {
+    this.setState({ userInput: event.target.value });
+  }
+
+  deleteCharHandler = ( index ) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updateText = text.join('');
+    this.setState( { userInput: updateText } );
   }
 
   render() {
+    const charList = this.state.userInput.split('').map( (ch, index) => {
+      return <Char
+        character={ ch }
+        key={ index }
+        clicked={ () => this.deleteCharHandler( index ) }
+      />
+    });
+
     return (
       <div className="App">
-        <Person name={ this.state.persons[0].name } age={ this.state.persons[0].age } />
-        <Person name={ this.state.persons[1].name } age={ this.state.persons[1].age }>My hobbies: play with toys</Person>
-        <button onClick={this.switchNameHandler}>Change name</button>
+        <input
+          type="text"
+          onChange={ this.inputChangedHandler }
+          value={ this.state.userInput }
+        />
+        <p>{ this.state.userInput }</p>
+        <Validation inputLength={ this.state.userInput.length } />
+        { charList }
       </div>
     );
-
-      // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi, Im Lucho Web!'));
   }
 }
 
