@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import './App.css';
 import Person from "./components/Person";
+
+// Import CSS
+import 'bootstrap/scss/bootstrap.scss';
+import './App.css';
 
 class App extends Component {
   state = {
     persons: [
-      { name: 'Lucho Web', age: 30 },
-      { name: 'Mirlei Sofia', age: 5 }
-    ]
+      { id: '1', name: 'Lucho Web', age: 30 },
+      { id: '2', name: 'Mirlei Sofia', age: 5 }
+    ],
+    showPersons: false
   }
 
   switchNameHandler = () => {
@@ -15,22 +19,61 @@ class App extends Component {
     // DON'T DO THIS: this.state.persons[0].name = 'Marlie';
     this.setState({
       persons: [
-        { name: 'Luis Augusto', age: 31 },
-        { name: 'Marlie Elena', age: 32 }
+        { id: '1', name: 'Luis Augusto', age: 31 },
+        { id: '2', name: 'Marlie Elena', age: 32 }
       ]
     })
   }
 
+togglePersonsHandler = () => {
+    this.setState({
+      showPersons: !this.state.showPersons
+    });
+  }
+
   render() {
+    const style = {
+      backgroundColor: 'red'
+    }
+
+    style.backgroundColor = 'gray';
+
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {
+            this.state.persons.map((person, index) => {
+              return <Person
+                name={ person.name }
+                age={ person.age }
+                key={ person.id }
+                className={`alert alert-info`}
+              />
+            })
+          }
+          <button
+            onClick={ this.switchNameHandler }
+            className={`btn btn-primary`}>
+            Change name
+          </button>
+        </div>
+      );
+    }
+
     return (
-      <div className="App">
-        <Person name={ this.state.persons[0].name } age={ this.state.persons[0].age } />
-        <Person name={ this.state.persons[1].name } age={ this.state.persons[1].age }>My hobbies: play with toys</Person>
-        <button onClick={this.switchNameHandler}>Change name</button>
+      <div className={`container App`}>
+        <h1>It works!</h1>
+        <button
+          className={`btn btn-info`}
+          onClick={ this.togglePersonsHandler }>
+            { this.state.showPersons ? 'Hide' : 'Show' } persons
+        </button>
+        <hr />
+        { persons }
       </div>
     );
-
-      // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi, Im Lucho Web!'));
   }
 }
 
