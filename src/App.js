@@ -49,7 +49,6 @@ togglePersonsHandler = () => {
                 name={ person.name }
                 age={ person.age }
                 key={ person.id }
-                className={`alert alert-info`}
               />
             })
           }
