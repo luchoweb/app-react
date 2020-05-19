@@ -32,12 +32,6 @@ togglePersonsHandler = () => {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'red'
-    }
-
-    style.backgroundColor = 'gray';
-
     let persons = null;
 
     if ( this.state.showPersons ) {
