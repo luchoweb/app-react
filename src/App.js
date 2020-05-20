@@ -8,8 +8,9 @@ import './App.css';
 class App extends Component {
   state = {
     persons: [
-      { id: '1', name: 'Lucho Web', age: 30 },
-      { id: '2', name: 'Mirlei Sofia', age: 5 }
+      { id: '1', name: 'Luis Augusto', age: 31 },
+      { id: '2', name: 'Marlie Elena', age: 32 },
+      { id: '3', name: 'Mirlei Sofia', age: 5 }
     ],
     showPersons: false
   }
@@ -19,8 +20,9 @@ class App extends Component {
     // DON'T DO THIS: this.state.persons[0].name = 'Marlie';
     this.setState({
       persons: [
-        { id: '1', name: 'Luis Augusto', age: 31 },
-        { id: '2', name: 'Marlie Elena', age: 32 }
+        { id: '1', name: 'Luis', age: 31 },
+        { id: '2', name: 'Marlie', age: 32 },
+        { id: '3', name: 'Mirlei', age: 5 }
       ]
     })
   }
@@ -31,7 +33,19 @@ togglePersonsHandler = () => {
     });
   }
 
+
+  deletePersonHandler = (index) => {
+    const persons = this.state.persons;
+    persons.splice(index, 1);
+
+    this.setState({
+      persons: persons
+    })
+  }
+
   render() {
+    const style = {}
+
     let persons = null;
 
     if ( this.state.showPersons ) {
@@ -43,6 +57,7 @@ togglePersonsHandler = () => {
                 name={ person.name }
                 age={ person.age }
                 key={ person.id }
+                clicked={ () => this.deletePersonHandler(index) }
               />
             })
           }
@@ -53,12 +68,24 @@ togglePersonsHandler = () => {
           </button>
         </div>
       );
+
+      style.backgroundColor = 'red';
+    }
+
+    const classes = [];
+    if ( this.state.persons.length <= 2 ) {
+      classes.push('red');
+    }
+    if ( this.state.persons.length <= 1 ) {
+      classes.push('bold')
     }
 
     return (
       <div className={`container App`}>
         <h1>It works!</h1>
+        <p className={ classes.join(' ') }>This is really working!</p>
         <button
+          style={ style }
           className={`btn btn-info`}
           onClick={ this.togglePersonsHandler }>
             { this.state.showPersons ? 'Hide' : 'Show' } persons
