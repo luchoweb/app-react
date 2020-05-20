@@ -1,20 +1,20 @@
 import React from 'react';
-import Radium from "radium";
-import './Person.scss';
+import styled from "styled-components";
+
+//import './Person.scss';
+
+const StyleDiv = styled.div`
+  margin: 0 auto 2rem auto;
+  width: 30%;
+`;
 
 const Person = ( props ) => {
-  const style = {
-    '@media (min-width: 500px)': {
-      width: '100%'
-    }
-  };
-
   return (
-    <div className={`alert alert-warning person-item`} style={ style }>
+    <StyleDiv className={`alert alert-warning`}>
       <p onClick={ props.clicked }>I'm { props.name } and I am { props.age } years old! { props.children }</p>
       <input type="text" onChange={ props.change }/>
-    </div>
+    </StyleDiv>
   )
 }
 
-export default Radium(Person);
+export default Person;
