@@ -47,7 +47,7 @@ class App extends Component {
   }
 
   // Change a person's name by input value
-  changeNameHandler = ( event ) => {
+  changeNameHandler = ( event, id ) => {
     // Find index for this input event
     const personIndex = this.state.persons.findIndex( p => {
       return p.id === id;
@@ -88,6 +88,7 @@ class App extends Component {
                 age={ person.age }
                 key={ person.id }
                 clicked={ () => this.deletePersonHandler(index) }
+                changed={ (event) => this.changeNameHandler(event, person.id) }
               />
             })
           }
@@ -104,14 +105,12 @@ class App extends Component {
       <div className={`container App`}>
         <h1>It works!</h1>
         <p>This is really working!</p>
-        <!-- Show / Hide Persons -->
         <button
           className={`btn btn-info`}
           onClick={ this.togglePersonsHandler }>
             { this.state.showPersons ? 'Hide' : 'Show' } persons
         </button>
         <hr />
-        <!-- Show persons find in the state-->
         { persons }
       </div>
     );
