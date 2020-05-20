@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Person from "./components/Person";
+import Radium, { StyleRoot } from "radium";
+import Person from "./components/Person/Person";
 
 // Import CSS
 import 'bootstrap/scss/bootstrap.scss';
@@ -27,12 +28,11 @@ class App extends Component {
     })
   }
 
-togglePersonsHandler = () => {
+  togglePersonsHandler = () => {
     this.setState({
       showPersons: !this.state.showPersons
     });
   }
-
 
   deletePersonHandler = (index) => {
     const persons = this.state.persons;
@@ -44,7 +44,12 @@ togglePersonsHandler = () => {
   }
 
   render() {
-    const style = {}
+    const style = {
+      ':hover': {
+        backgroundColor: 'yellow',
+        color: 'black'
+      }
+    }
 
     let persons = null;
 
@@ -81,20 +86,22 @@ togglePersonsHandler = () => {
     }
 
     return (
-      <div className={`container App`}>
-        <h1>It works!</h1>
-        <p className={ classes.join(' ') }>This is really working!</p>
-        <button
-          style={ style }
-          className={`btn btn-info`}
-          onClick={ this.togglePersonsHandler }>
-            { this.state.showPersons ? 'Hide' : 'Show' } persons
-        </button>
-        <hr />
-        { persons }
-      </div>
+      <StyleRoot>
+        <div className={`container App`}>
+          <h1>It works!</h1>
+          <p className={ classes.join(' ') }>This is really working!</p>
+          <button
+            style={ style }
+            className={`btn btn-info`}
+            onClick={ this.togglePersonsHandler }>
+              { this.state.showPersons ? 'Hide' : 'Show' } persons
+          </button>
+          <hr />
+          { persons }
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
