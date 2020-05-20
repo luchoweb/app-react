@@ -3,7 +3,7 @@ import Person from "./components/Person";
 
 // Import CSS
 import 'bootstrap/scss/bootstrap.scss';
-import './App.css';
+import Styles from './App.module.scss';
 
 class App extends Component {
   state = {
@@ -63,27 +63,25 @@ togglePersonsHandler = () => {
           }
           <button
             onClick={ this.switchNameHandler }
-            className={`btn btn-primary`}>
+            className={`${Styles.Button} btn btn-primary`}>
             Change name
           </button>
         </div>
       );
-
-      style.backgroundColor = 'red';
     }
 
-    const classes = [];
+    const assignedClasses = [];
     if ( this.state.persons.length <= 2 ) {
-      classes.push('red');
+      assignedClasses.push('red');
     }
     if ( this.state.persons.length <= 1 ) {
-      classes.push('bold')
+      assignedClasses.push('bold');
     }
 
     return (
-      <div className={`container App`}>
+      <div className={`container ${Styles.App}`}>
         <h1>It works!</h1>
-        <p className={ classes.join(' ') }>This is really working!</p>
+        <p className={ assignedClasses.join(' ') }>This is really working!</p>
         <button
           style={ style }
           className={`btn btn-info`}
