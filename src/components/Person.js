@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './Person.scss';
 
-class Person extends Component {
-  render() {
-    return (
-      <p className={`alert alert-warning`}>
-        I'm { this.props.name } and I am { this.props.age } years old! { this.props.children }
-      </p>
-    )
-  }
+const Person = ( props ) => {
+  return (
+    <p className={`alert alert-warning person-item`} onClick={ props.clicked }>
+      I'm { props.name } and I am { props.age } years old! { props.children }
+      <input type="text" onChange={ props.change }/>
+    </p>
+  )
 }
 
 export default Person;
