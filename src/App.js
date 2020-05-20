@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Person from "./components/Person";
+import Person from "./components/Person/Person";
 
 // Import CSS
 import 'bootstrap/scss/bootstrap.scss';
