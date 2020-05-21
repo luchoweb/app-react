@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Person from "./components/Person/Person";
+import Person from './components/Person/Person';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 // Import CSS
 import 'bootstrap/scss/bootstrap.scss';
@@ -37,9 +38,9 @@ class App extends Component {
 
 
   // delete some person in the state with click event
-  deletePersonHandler = (index) => {
+  deletePersonHandler = ( personIndex ) => {
     const persons = this.state.persons;
-    persons.splice(index, 1);
+    persons.splice(personIndex, 1);
 
     this.setState({
       persons: persons
@@ -83,13 +84,15 @@ class App extends Component {
           {
             // mapping persons on state
             this.state.persons.map((person, index) => {
-              return <Person
-                name={ person.name }
-                age={ person.age }
-                key={ person.id }
-                clicked={ () => this.deletePersonHandler(index) }
-                changed={ (event) => this.changeNameHandler(event, person.id) }
-              />
+              return <ErrorBoundary>
+                  <Person
+                    name={ person.name }
+                    age={ person.age }
+                    key={ person.id }
+                    clicked={ () => this.deletePersonHandler(index) }
+                    changed={ (event) => this.changeNameHandler(event, person.id) }
+                  />
+              </ErrorBoundary>
             })
           }
           <button
