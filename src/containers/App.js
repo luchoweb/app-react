@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Person from './components/Person/Person';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '../components/Errors/ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
 
 // Import CSS
 import 'bootstrap/scss/bootstrap.scss';
@@ -80,27 +80,16 @@ class App extends Component {
     if ( this.state.showPersons ) {
       // add JSX to persons
       persons = (
-        <div>
-          {
-            // mapping persons on state
-            this.state.persons.map((person, index) => {
-              return <ErrorBoundary>
-                  <Person
-                    name={ person.name }
-                    age={ person.age }
-                    key={ person.id }
-                    clicked={ () => this.deletePersonHandler(index) }
-                    changed={ (event) => this.changeNameHandler(event, person.id) }
-                  />
-              </ErrorBoundary>
-            })
-          }
+        <ErrorBoundary>
+          <Persons
+            persons={ this.state.persons }
+          />
           <button
             onClick={ this.switchNameHandler }
             className={`btn btn-primary`}>
             Change name
           </button>
-        </div>
+        </ErrorBoundary>
       );
     }
 

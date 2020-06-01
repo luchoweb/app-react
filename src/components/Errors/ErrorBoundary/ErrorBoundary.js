@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class ErrorBoundary extends Component {
   state = {
     hasError: false,
-    errorMessage: ''
+    errorMessage: '',
+    errorJSX: null
   }
 
   componentDidCatch(error, errorInfo) {
@@ -11,15 +12,13 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    let error = null;
-
     if  ( this.state.hasError ) {
-      error = <h1>Something was wrong!</h1>;
+      this.state.errorJSX = <h1>Something was wrong!</h1>;
     } else {
-      error = this.props.children;
+      this.state.errorJSX = this.props.children;
     }
 
-    return error;
+    return this.state.errorJSX;
   }
 }
 
